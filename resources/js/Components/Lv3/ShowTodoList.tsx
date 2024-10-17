@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Box, List, ListItem, ListItemText, Typography } from "@mui/material";
+import Button from "../Lv1/ButtonAtom";
 const ShowTodoList: React.FC = () => {
     const [todos, setTodos] = useState<{ id: number; content: string }[]>([]);
     const [loading, setLoading] = useState(true);
@@ -28,9 +29,10 @@ const ShowTodoList: React.FC = () => {
             </Typography>
             <List>
                 {todos.map((todo) => (
-                    <ListItem key={todo.id}>
-                        <ListItemText primary={todo.id} />
+                    <ListItem key={todo.id} sx={{ border: "2px solid #ccc" }}>
+                        <ListItemText primary={`ID: ${todo.id}`} />
                         <ListItemText primary={todo.content} />
+                        <Button>変更</Button>
                     </ListItem>
                 ))}
             </List>

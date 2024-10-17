@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import Button from "../Lv1/ButtonAtom";
 
 const TodoForm: React.FC = () => {
     const [content, setContent] = useState("");
@@ -33,12 +34,7 @@ const TodoForm: React.FC = () => {
                     margin="normal"
                     required
                 />
-                <Button
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    fullWidth
-                >
+                <Button type="submit" visual="primary">
                     目標を送信
                 </Button>
             </form>

@@ -6,8 +6,8 @@ import "../css/app.css";
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import ShowTodoListLayouts from "./Layouts/ShowTodoListLayouts";
-import TodoFormLayouts from "./Layouts/TodoFormLayouts";
+import TodoFormLayouts from "./Layouts/MyPageLayouts";
+import MyPageLayouts from "./Layouts/MyPageLayouts";
 
 const App: React.FC = () => {
     return (
@@ -15,7 +15,7 @@ const App: React.FC = () => {
             <div>
                 <Routes>
                     <Route path="/" element={<TodoFormLayouts />} />
-                    <Route path="/show" element={<ShowTodoListLayouts />} />
+                    <Route path="/mypage" element={<MyPageLayouts />} />
                 </Routes>
             </div>
         </Router>
