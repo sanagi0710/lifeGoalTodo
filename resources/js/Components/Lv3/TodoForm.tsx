@@ -1,21 +1,20 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Box, TextField, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import Button from "../Lv1/ButtonAtom";
 
-const TodoForm: React.FC = () => {
+const TodoForm: React.FC<{ onTodoAdded: () => void }> = ({ onTodoAdded }) => {
     const [content, setContent] = useState("");
     const [message, setMessage] = useState("");
-    const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
             const response = await axios.post("/api/todo", { content });
-            setMessage("Item added successfully");
+            setMessage(content + "を追加しました");
             setContent("");
-            navigate("/show");
+            console.log(onTodoAdded());
+            onTodoAdded();
         } catch (error) {
             setMessage("Failed to add item");
         }
@@ -23,7 +22,7 @@ const TodoForm: React.FC = () => {
     return (
         <Box sx={{ maxWidth: 400, mx: "auto", mt: 4 }}>
             <Typography variant="h4" component="h1" gutterBottom>
-                lifiGoalTodo
+                やりたいことリスト
             </Typography>
             <form onSubmit={handleSubmit}>
                 <TextField
@@ -34,7 +33,7 @@ const TodoForm: React.FC = () => {
                     margin="normal"
                     required
                 />
-                <Button type="submit" visual="primary">
+                <Button type="submit" visual="primary" size="medium">
                     目標を送信
                 </Button>
             </form>

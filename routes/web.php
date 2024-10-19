@@ -9,6 +9,8 @@ use App\Http\Controllers\TodoController;
 // Todo APIエンドポイント
 Route::post('/api/todo', [TodoController::class, 'setTodo']);
 Route::get('/api/todo', [TodoController::class, 'index']);
+Route::delete('/api/todo/{id}', [TodoController::class, 'deleteTodo']);
+Route::put('api/todo/{id}', [TodoController::class, 'updateTodo']);
 
 
 // フロントエンドのすべてのリクエストをキャッチするルート
