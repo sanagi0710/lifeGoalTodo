@@ -2,7 +2,7 @@ import CommonHeader from "@/Components/Lv2/CommonHeader";
 import MyPage from "@/Components/Lv3/MyPage";
 import React from "react";
 
-const TodoFormLayouts: React.FC = () => {
+const MyPageLayouts: React.FC = () => {
     return (
         <>
             <CommonHeader />
@@ -11,4 +11,4 @@ const TodoFormLayouts: React.FC = () => {
     );
 };
 
-export default TodoFormLayouts;
+export default MyPageLayouts;

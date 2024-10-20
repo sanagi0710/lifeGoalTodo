@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import {
     Box,
     List,
@@ -12,32 +11,17 @@ import Button from "../Lv1/ButtonAtom";
 
 interface ShowTodoListProps {
     todos: { id: number; content: string }[];
+    onDeleteTodo: (id: number) => void; // 削除用のコールバック関数
+    onUpdateTodo: (id: number, newContent: string) => void; // 更新用のコールバック関数
 }
 
-const ShowTodoList: React.FC<ShowTodoListProps> = ({ todos }) => {
+const ShowTodoList: React.FC<ShowTodoListProps> = ({
+    todos,
+    onDeleteTodo,
+    onUpdateTodo,
+}) => {
     const [editingTodoId, setEditingTodoId] = useState<number | null>(null);
     const [newContent, setNewContent] = useState("");
-
-    const deleteList = async (id: number) => {
-        try {
-            await axios.delete(`/api/todo/${id}`);
-        } catch (error) {
-            console.error("削除失敗", error);
-        }
-    };
-
-    const updateTodo = async (id: number) => {
-        try {
-            const response = await axios.put(`/api/todo/${id}`, {
-                content: newContent,
-            });
-            console.log("Updated Todo:", response.data);
-            setEditingTodoId(null);
-            setNewContent("");
-        } catch (error) {
-            console.error("Error updating todo:", error);
-        }
-    };
 
     return (
         <Box sx={{ maxWidth: 400, mx: "auto", mt: 4 }}>
@@ -66,7 +50,10 @@ const ShowTodoList: React.FC<ShowTodoListProps> = ({ todos }) => {
                                     type="button"
                                     visual="primary"
                                     size="medium"
-                                    onClick={() => updateTodo(todo.id)}
+                                    onClick={() => {
+                                        onUpdateTodo(todo.id, newContent);
+                                        setEditingTodoId(null);
+                                    }}
                                 >
                                     更新
                                 </Button>
@@ -97,7 +84,7 @@ const ShowTodoList: React.FC<ShowTodoListProps> = ({ todos }) => {
                                     type="button"
                                     visual="alert"
                                     size="medium"
-                                    onClick={() => deleteList(todo.id)}
+                                    onClick={() => onDeleteTodo(todo.id)}
                                 >
                                     削除
                                 </Button>

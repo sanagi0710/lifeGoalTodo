@@ -1,24 +1,28 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { Box, TextField, Typography } from "@mui/material";
 import Button from "../Lv1/ButtonAtom";
 
-const TodoForm: React.FC<{ onTodoAdded: () => void }> = ({ onTodoAdded }) => {
+interface TodoFormProps {
+    onAddTodo: (content: string) => void;
+}
+
+const TodoForm: React.FC<TodoFormProps> = ({ onAddTodo }) => {
     const [content, setContent] = useState("");
     const [message, setMessage] = useState("");
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        try {
-            const response = await axios.post("/api/todo", { content });
-            setMessage(content + "を追加しました");
-            setContent("");
-            console.log(onTodoAdded());
-            onTodoAdded();
-        } catch (error) {
-            setMessage("Failed to add item");
+        if (content.trim() === "") {
+            setMessage("内容を入力してください");
+            return;
         }
+
+        // 親コンポーネントのonAddTodo関数を呼び出す
+        onAddTodo(content);
+        setMessage(content + "を追加しました");
+        setContent("");
     };
+
     return (
         <Box sx={{ maxWidth: 400, mx: "auto", mt: 4 }}>
             <Typography variant="h4" component="h1" gutterBottom>
@@ -26,7 +30,7 @@ const TodoForm: React.FC<{ onTodoAdded: () => void }> = ({ onTodoAdded }) => {
             </Typography>
             <form onSubmit={handleSubmit}>
                 <TextField
-                    label="Name"
+                    label="入力してください"
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                     fullWidth
